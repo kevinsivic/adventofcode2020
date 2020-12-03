@@ -2,16 +2,16 @@ import re
 
 class Password(object):
     def __init__(self):
-        self.min = -1
-        self.max = -1
+        self.pos1 = -1
+        self.pos2 = -1
         self.char = '-1'
         self.password = '-1'
 
-    def setmin(self, min):
-        self.min = int(min)
+    def setpos1(self, pos1):
+        self.pos1 = int(pos1)
 
-    def setmax(self, max):
-        self.max = int(max)
+    def setpos2(self, pos2):
+        self.pos2 = int(pos2)
 
     def setchar(self, char):
         self.char = char
@@ -27,8 +27,8 @@ def read_input(file_name):
     for entry in file.readlines():
         m = p.match(entry)
         password = Password()
-        password.setmin(m.group(1))
-        password.setmax(m.group(2))
+        password.setpos1(m.group(1))
+        password.setpos2(m.group(2))
         password.setchar(m.group(3))
         password.setpass(m.group(4))
         
@@ -40,8 +40,11 @@ def read_input(file_name):
 def calculate_day2(data):
     valid = 0
     for password in data:
-        count = password.password.count(password.char)
-        if password.max >= count >= password.min:
+        pos1 = password.pos1
+        pos2 = password.pos2
+        char = password.char
+        password = password.password
+        if (password[pos1-1] == char) ^ (password[pos2-1] == char):
             valid += 1
 
     return valid
