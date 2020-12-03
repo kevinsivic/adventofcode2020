@@ -21,8 +21,9 @@ def read_input(file_name):
 def calculate_day1(data):
     for i in data:
         for j in data:
-            if i + j == 2020:
-                return i*j
+            for k in data:
+                if i + j + k == 2020:
+                    return i*j*k
 
 
 if __name__ == '__main__':
